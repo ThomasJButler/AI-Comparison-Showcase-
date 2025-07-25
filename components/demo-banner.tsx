@@ -1,0 +1,35 @@
+"use client";
+
+import { motion } from 'framer-motion';
+import { AlertTriangle, ExternalLink } from 'lucide-react';
+import Link from 'next/link';
+
+export function DemoBanner() {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="bg-matrix-primary/10 border-b border-matrix-primary/20 py-2"
+    >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <AlertTriangle className="w-4 h-4 text-matrix-primary" />
+            <span className="text-sm text-matrix-primary">
+              Prototype Version - Showcasing Data Visualisation Capabilities
+            </span>
+          </div>
+          <Link
+            href="https://github.com/AiTomaticAI"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-sm text-matrix-primary hover:text-matrix-secondary transition-colors flex items-center gap-1"
+          >
+            View Source
+            <ExternalLink className="w-4 h-4" />
+          </Link>
+        </div>
+      </div>
+    </motion.div>
+  );
+}

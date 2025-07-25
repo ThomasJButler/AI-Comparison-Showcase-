@@ -1,0 +1,213 @@
+"use client";
+
+import { motion } from 'framer-motion';
+import { Brain, Cpu, Network, Sparkles, ArrowRight, Shield, Zap, Code, LineChart } from 'lucide-react';
+import Link from 'next/link';
+
+const features = [
+  {
+    icon: Brain,
+    title: "Advanced AI Models",
+    description: "State-of-the-art neural networks trained on massive datasets for unparalleled performance"
+  },
+  {
+    icon: Network,
+    title: "Network Analysis",
+    description: "Dynamic graph Visualisation and relationship mapping for complex systems"
+  },
+  {
+    icon: LineChart,
+    title: "Real-time Analytics",
+    description: "Live metrics and performance monitoring with instant insights"
+  },
+  {
+    icon: Code,
+    title: "Developer Tools",
+    description: "Comprehensive APIs and SDKs for seamless AI integration"
+  }
+];
+
+const capabilities = [
+  {
+    title: "Natural Language",
+    description: "Advanced language models for human-like text generation and understanding",
+    stats: "99.8% accuracy",
+    icon: Brain,
+    color: "text-matrix-primary"
+  },
+  {
+    title: "Computer Vision",
+    description: "State-of-the-art image recognition and generation capabilities",
+    stats: "Real-time processing",
+    icon: Cpu,
+    color: "text-matrix-secondary"
+  },
+  {
+    title: "Neural Networks",
+    description: "Deep learning models that evolve and improve over time",
+    stats: "Continuous learning",
+    icon: Network,
+    color: "text-matrix-tertiary"
+  }
+];
+
+export function MainContent() {
+  return (
+    <div className="min-h-screen">
+      {/* Hero Section */}
+      <section className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8">
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-b from-background via-background/95 to-background" />
+        </div>
+        
+        <div className="relative max-w-7xl mx-auto text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="space-y-8"
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ delay: 0.2 }}
+              className="flex justify-center mb-8"
+            >
+              <div className="relative">
+                <div className="absolute inset-0 blur-3xl bg-matrix-primary/20 rounded-full" />
+                <Brain className="w-24 h-24 text-matrix-primary relative" />
+              </div>
+            </motion.div>
+
+            <h1 className="text-5xl sm:text-7xl font-bold mb-6 bg-gradient-to-r from-matrix-primary via-matrix-secondary to-matrix-tertiary text-transparent bg-clip-text">
+              The Future of AI
+              <br />
+              Is Now
+            </h1>
+            
+            <p className="text-xl sm:text-2xl mb-8 text-foreground/80 max-w-3xl mx-auto">
+              Experience the next generation of artificial intelligence with our cutting-edge platform
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link
+                href="/dashboard"
+                className="inline-flex items-center px-8 py-3 rounded-lg bg-matrix-primary text-background font-semibold hover:bg-matrix-primary/90 transition-all group"
+              >
+                Launch Platform
+                <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              </Link>
+              <Link
+                href="/docs"
+                className="inline-flex items-center px-8 py-3 rounded-lg border border-matrix-primary bg-transparent text-matrix-primary font-semibold hover:bg-matrix-primary/10 transition-all"
+              >
+                Documentation
+              </Link>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Features Grid */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-3xl font-bold mb-4 bg-gradient-to-r from-matrix-primary to-matrix-secondary text-transparent bg-clip-text">
+              Powerful Features
+            </h2>
+            <p className="text-foreground/70 max-w-2xl mx-auto">
+              Our platform combines cutting-edge AI capabilities with intuitive tools
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {features.map((feature, index) => (
+              <motion.div
+                key={feature.title}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+                className="p-6 rounded-lg border border-border bg-card hover:border-matrix-primary/50 transition-all hover:-translate-y-1"
+              >
+                <feature.icon className="w-10 h-10 text-matrix-primary mb-4" />
+                <h3 className="text-lg font-semibold mb-2">{feature.title}</h3>
+                <p className="text-sm text-foreground/70">{feature.description}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Capabilities Section */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-card border-y border-border">
+        <div className="max-w-7xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-3xl font-bold mb-4 bg-gradient-to-r from-matrix-primary to-matrix-secondary text-transparent bg-clip-text">
+              AI Capabilities
+            </h2>
+            <p className="text-foreground/70 max-w-2xl mx-auto">
+              Explore our advanced AI models and their capabilities
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {capabilities.map((capability, index) => (
+              <motion.div
+                key={capability.title}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+                className="relative p-8 rounded-lg border border-border bg-background/50 backdrop-blur-sm hover:border-matrix-primary/50 transition-all group"
+              >
+                <div className={`mb-6 ${capability.color}`}>
+                  <capability.icon className="w-12 h-12" />
+                </div>
+                <h3 className="text-xl font-bold mb-2">{capability.title}</h3>
+                <p className="text-foreground/70 mb-4">{capability.description}</p>
+                <p className={`text-sm font-mono ${capability.color}`}>
+                  {capability.stats}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-4xl mx-auto text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="p-8 rounded-lg border border-matrix-primary/20 bg-card relative overflow-hidden"
+          >
+            <div className="absolute inset-0 bg-gradient-to-r from-matrix-primary/10 via-matrix-secondary/10 to-matrix-tertiary/10" />
+            <div className="relative">
+              <h2 className="text-3xl font-bold mb-4 bg-gradient-to-r from-matrix-primary to-matrix-secondary text-transparent bg-clip-text">
+                Ready to Get Started?
+              </h2>
+              <p className="text-foreground/70 mb-8 max-w-2xl mx-auto">
+                Join the future of AI development with our powerful platform
+              </p>
+              <Link
+                href="/dashboard"
+                className="inline-flex items-center px-8 py-3 rounded-lg bg-matrix-primary text-background font-semibold hover:bg-matrix-primary/90 transition-all group"
+              >
+                Launch Platform
+                <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              </Link>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+    </div>
+  );
+}
