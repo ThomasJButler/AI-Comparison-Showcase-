@@ -1,35 +1,40 @@
-# AiTomatic 🤖
+# AI Comparison Showcase 🤖
 
-> Democratising artificial intelligence with cutting-edge visualisation and automation capabilities.
+> An interactive tool for comparing multiple AI models side by side with real-time performance metrics and visualizations.
 
 ## Overview
 
-AiTomatic is an innovative platform designed to revolutionise how we interact with and develop AI systems. The current prototype showcases advanced data visualisation capabilities, laying the groundwork for future AI agent automation features.
+AI Comparison Showcase is a portfolio project demonstrating advanced AI model comparison capabilities. It allows users to test and compare various AI models including OpenAI's GPT, Anthropic's Claude, DeepSeek, and Perplexity models with real-time performance metrics and beautiful visualizations.
 
-![AiTomatic Demo](To Come!!)
-
-- Website: (https://AiTomatic.co.uk/)
+![AI Comparison Demo](To be added)
 
 ## 🚀 Features
 
-### Current Prototype
-- **Interactive Data Visualisations**
-  - Real-time system metrics monitoring
-  - Network analysis graphs
-  - Advanced time series analysis
-  - Data flow visualisations
+### Core Functionality
+- **Multi-Model AI Playground**
+  - Support for OpenAI, Anthropic, DeepSeek, and Perplexity models
+  - Real-time response streaming
+  - Multiple input formats (JSON, text, code)
+  - Performance metrics tracking
 
-- **Scientific Tools**
-  - Neural network evolution visualisation
-  - Data privacy scanner
-  - Automated sensitive information detection
-  - Research data preparation tools
+- **Model Comparison**
+  - Side-by-side model testing
+  - Response time analysis
+  - Token usage tracking
+  - Accuracy metrics
+  - Export comparison results
+
+- **Advanced Visualizations**
+  - Real-time performance charts
+  - Network analysis graphs
+  - 3D force-directed graphs
+  - Token usage heatmaps
 
 - **Modern UI/UX**
   - Matrix-inspired design system
+  - Smooth animations with Framer Motion
   - Responsive layouts
-  - Smooth animations
-  - Dark mode optimised
+  - Dark mode optimized
 
 ## 🛠️ Technology Stack
 
@@ -38,102 +43,134 @@ AiTomatic is an innovative platform designed to revolutionise how we interact wi
 - **TypeScript** - Type-safe development
 - **Tailwind CSS** - Utility-first styling
 - **Framer Motion** - Smooth animations
-- **Recharts** - Data visualisation
-- **Lucide Icons** - Beautiful iconography
-- **shadcn/ui** - UI component system
+- **Recharts** - Data visualization
+- **Monaco Editor** - Code editing
+- **Three.js** - 3D visualizations
 
-### Authentication
-- **NextAuth.js** - Authentication system
-- **JWT** - Token-based auth
-- **Credentials Provider** - Email/password authentication
+### AI Integration
+- **OpenAI API** - GPT models
+- **Anthropic API** - Claude models
+- **DeepSeek API** - DeepSeek models
+- **Perplexity API** - Search-enhanced models
 
-### Data Visualisation
-- **D3.js** - Custom visualisations
-- **Canvas API** - Real-time graphics
-- **WebGL** - Hardware-accelerated rendering
+### UI Components
+- **shadcn/ui** - Component system
+- **Radix UI** - Accessible components
+- **Lucide Icons** - Icon library
 
-### Future Implementation
+## 🏃‍♂️ Getting Started
 
-#### AI & Machine Learning
-- **Python**
-  - TensorFlow/PyTorch for model training
-  - Scikit-learn for data preprocessing
-  - NumPy/Pandas for data manipulation
-  - FastAPI for ML model serving
+### Prerequisites
+- Node.js 18+ and npm
+- API keys for AI providers (optional, demo mode available)
 
-#### Data Processing
-- **Stream Processing**
-  - Apache Kafka for real-time data streams
-  - Apache Spark for large-scale data processing
-  - Redis for caching and real-time analytics
-
-#### Infrastructure
-- **Containerisation**
-  - Docker for containerisation
-  - Kubernetes for orchestration
-  - Terraform for infrastructure as code
-
-## 🚀 Getting Started
+### Installation
 
 1. Clone the repository:
-   ```bash
-   git clone https://github.com/AiTomaticAI/AiTomatic-.git
-   ```
+```bash
+git clone https://github.com/[your-username]/ai-comparison-showcase.git
+cd ai-comparison-showcase
+```
 
 2. Install dependencies:
-   ```bash
-   cd AiTomatic
-   npm install
-   ```
+```bash
+npm install
+```
 
 3. Set up environment variables:
-   ```bash
-   cp .env.example .env.local
-   ```
+```bash
+cp .env.example .env.local
+```
 
-4. Start the development server:
-   ```bash
-   npm run dev
-   ```
+4. Configure your AI provider API keys in `.env.local` (optional):
+```env
+OPENAI_API_KEY=your_openai_key
+ANTHROPIC_API_KEY=your_anthropic_key
+DEEPSEEK_API_KEY=your_deepseek_key
+PERPLEXITY_API_KEY=your_perplexity_key
+```
 
-5. Access the prototype:
-   ```
-   URL: http://localhost:3000
-   Email: demo@AiTomatic.com
-   Password: demo1234
-   ```
+5. Run the development server:
+```bash
+npm run dev
+```
 
-## 🔮 Future Roadmap
+6. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-1. **Q2 2024**
-   - AI Agent Creation Interface
-   - Python Backend Integration
-   - Model Training Pipeline
+## 📁 Project Structure
 
-2. **Q3 2024**
-   - Automated Data Cleaning
-   - Real-time Model Monitoring
-   - Advanced Analytics Dashboard
+```
+├── app/              # Next.js app directory
+│   ├── playground/   # AI testing playground
+│   ├── models/       # Model management
+│   ├── analytics/    # Analytics dashboard
+│   └── profile/      # User settings
+├── components/       # React components
+│   ├── ui/          # Reusable UI components
+│   └── visualizations/ # Data viz components
+├── lib/             # Utility libraries
+│   ├── api/         # API clients
+│   └── playground/  # Playground logic
+└── hooks/           # Custom React hooks
+```
 
-3. **Q4 2024**
-   - Multi-Agent Orchestration
-   - Distributed Training Support
-   - Enterprise Security Features
+## 🎨 Design System
 
-## 🤝 Contributing
+The project uses a Matrix-inspired design system with:
+- Custom color palette with green accent colors
+- Monospace typography (JetBrains Mono)
+- Glowing effects and animations
+- Dark theme optimized
 
-We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
+## 🧪 Testing
+
+Run the test suite:
+```bash
+npm test
+```
+
+Run tests with coverage:
+```bash
+npm run test:coverage
+```
+
+## 📦 Building for Production
+
+Build the application:
+```bash
+npm run build
+```
+
+Start the production server:
+```bash
+npm start
+```
+
+## 🚀 Deployment
+
+The application can be deployed to:
+- Vercel (recommended for Next.js)
+- Netlify
+- AWS Amplify
+- Any Node.js hosting platform
 
 ## 📝 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
 ## 👨‍💻 Author
 
-**Thomas Butler**
-- Website: (https://thomasjbutler.me/)
-- GitHub: (https://github.com/ThomasJButler)
+**[Your Name]**
+- Portfolio: [your-portfolio-url]
+- LinkedIn: [your-linkedin]
+- GitHub: [@your-username]
 
----
+## 🙏 Acknowledgments
 
-<p align="center">Built with ❤️ in the UK</p>
+- Inspired by the need for better AI model comparison tools
+- Built as a portfolio project to showcase full-stack development skills
+- Special thanks to the open-source community
