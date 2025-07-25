@@ -1,0 +1,1 @@
+Task(description="Complete features", prompt="Finish all incomplete features in the AI Comparison Showcase. Follow existing patterns, complete TODO items, implement missing functionality, and ensure all features work end-to-end. Focus on AI model comparison, interactive elements, and data visualization.", subagent_type="feature-completer")
