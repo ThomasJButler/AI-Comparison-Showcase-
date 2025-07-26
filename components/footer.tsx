@@ -26,7 +26,7 @@ export function Footer() {
             <motion.a
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
-              href="https://github.com/AiTomaticAi/" 
+              href="https://github.com/[your-username]/ai-comparison-showcase" 
               target="_blank"
               rel="noopener noreferrer"
               className="text-foreground/70 hover:text-matrix-primary transition-colors"

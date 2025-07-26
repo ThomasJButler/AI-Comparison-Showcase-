@@ -22,7 +22,7 @@ export default function DocsPage() {
             Documentation
           </h1>
           <p className="text-foreground/70">
-            Everything you need to build with AiTomatic
+            Learn how to use the AI Comparison Showcase
           </p>
         </motion.div>
 

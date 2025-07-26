@@ -71,7 +71,7 @@ export default function ProfileLayout({
             User Profile
           </h1>
           <p className="text-foreground/70">
-            Customize your AiTomatic experience and manage your settings
+            Customize your AI Comparison experience and manage your settings
           </p>
         </motion.div>
 
