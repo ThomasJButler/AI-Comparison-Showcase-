@@ -30,7 +30,7 @@ export default function ProfilePage() {
             <User className="w-5 h-5 text-matrix-primary" />
             <div>
               <p className="text-sm text-foreground/50">Username</p>
-              <p className="font-medium">aitomatic_user</p>
+              <p className="font-medium">demo_user</p>
             </div>
           </div>
           
@@ -38,7 +38,7 @@ export default function ProfilePage() {
             <Mail className="w-5 h-5 text-matrix-primary" />
             <div>
               <p className="text-sm text-foreground/50">Email</p>
-              <p className="font-medium">demo@aitomatic.com</p>
+              <p className="font-medium">demo@example.com</p>
             </div>
           </div>
           
@@ -72,7 +72,7 @@ export default function ProfilePage() {
         
         <div className="space-y-4">
           <p className="text-foreground/80">
-            Welcome to AiTomatic! Configure your environment and explore our powerful AI tools:
+            Welcome to AI Comparison Showcase! Configure your environment and explore powerful AI comparison tools:
           </p>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">

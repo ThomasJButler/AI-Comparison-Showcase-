@@ -20,24 +20,24 @@ const jetBrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'),
   title: {
-    default: 'AiTomatic Prototype',
-    template: '%s | AiTomatic Prototype',
+    default: 'AI Comparison Showcase',
+    template: '%s | AI Comparison Showcase',
   },
-  description: 'Experience the future of data visualisation with our prototype platform',
+  description: 'Compare leading AI models side by side with real-time performance metrics and interactive visualizations',
   // Add OpenGraph metadata
   openGraph: {
     type: 'website',
     locale: 'en_US',
     url: process.env.NEXT_PUBLIC_APP_URL,
-    title: 'AiTomatic Prototype',
-    description: 'Advanced Data Visualisation Platform',
-    siteName: 'AiTomatic'
+    title: 'AI Comparison Showcase',
+    description: 'Interactive AI Model Comparison Tool',
+    siteName: 'AI Comparison Showcase'
   },
   // Add Twitter metadata
   twitter: {
     card: 'summary_large_image',
-    title: 'AiTomatic Prototype',
-    description: 'Advanced Data Visualisation Platform',
+    title: 'AI Comparison Showcase',
+    description: 'Interactive AI Model Comparison Tool',
     creator: 'Thomas J Butler'
   },
   // Add manifest
@@ -63,10 +63,10 @@ export default function RootLayout({
     >
       <head>
         {/* Add PWA meta tags */}
-        <meta name="application-name" content="AiTomatic" />
+        <meta name="application-name" content="AI Comparison" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-        <meta name="apple-mobile-web-app-title" content="AiTomatic" />
+        <meta name="apple-mobile-web-app-title" content="AI Comparison" />
         <meta name="format-detection" content="telephone=no" />
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="theme-color" content="#0d0d0d" />

@@ -103,7 +103,7 @@ export default function ApiSettingsPage() {
   useEffect(() => {
     const loadSavedConfig = () => {
       try {
-        const savedConfig = localStorage.getItem('aitomatic_api_config');
+        const savedConfig = localStorage.getItem('ai_comparison_api_config');
         if (!savedConfig) return;
         
         const parsedConfig = JSON.parse(savedConfig) as ApiConfig;
@@ -157,7 +157,7 @@ export default function ApiSettingsPage() {
 
     try {
       // Get the current saved config for merging
-      const savedConfig = localStorage.getItem('aitomatic_api_config');
+      const savedConfig = localStorage.getItem('ai_comparison_api_config');
       let updatedConfig: ApiConfig = {};
       
       if (savedConfig) {
@@ -180,7 +180,7 @@ export default function ApiSettingsPage() {
       });
 
       // Save to localStorage
-      localStorage.setItem('aitomatic_api_config', JSON.stringify(updatedConfig));
+      localStorage.setItem('ai_comparison_api_config', JSON.stringify(updatedConfig));
       
       // Update ApiService
       if (ApiService.getInstance) {
@@ -233,7 +233,7 @@ export default function ApiSettingsPage() {
     
     try {
       // Get the actual API key
-      const savedConfig = localStorage.getItem('aitomatic_api_config');
+      const savedConfig = localStorage.getItem('ai_comparison_api_config');
       let apiKey = config[providerId]?.apiKey || '';
       
       // If the key is masked, use the saved one

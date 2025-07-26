@@ -80,7 +80,7 @@ export default function LandingPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
               >
-                Welcome to AiTomatic
+                AI Comparison Showcase
               </motion.h1>
 
               <motion.p
@@ -89,7 +89,7 @@ export default function LandingPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}
               >
-                Where Artificial Intelligence Meets Innovation
+                Compare Leading AI Models Side by Side
               </motion.p>
 
               {/* Enter Button */}
@@ -102,7 +102,7 @@ export default function LandingPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.6 }}
               >
-                Enter Prototype
+                Enter Showcase
               </motion.button>
 
               {/* Creator Credit */}
