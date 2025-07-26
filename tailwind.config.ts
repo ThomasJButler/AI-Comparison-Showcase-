@@ -1,4 +1,4 @@
-import type { Config } from 'tailwindcss'
+import type { Config } from "tailwindcss"
 
 const config = {
   darkMode: ["class"],
@@ -52,13 +52,12 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        // Matrix theme colors
+        // Custom matrix theme colors
         matrix: {
-          primary: "#00ff00",
-          secondary: "#00ffff",
-          tertiary: "#ff00ff",
-          dark: "#001100",
-          glow: "#00ff0050",
+          primary: "#00ff41",    // Bright green
+          secondary: "#39ff14",  // Neon green
+          tertiary: "#7fff00",   // Chartreuse
+          dark: "#001100",       // Dark green background
         },
       },
       borderRadius: {
@@ -75,13 +74,25 @@ const config = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
-        "matrix-rain": {
-          "0%": { transform: "translateY(-100%)" },
-          "100%": { transform: "translateY(100%)" },
-        },
         "pulse-glow": {
-          "0%, 100%": { opacity: "0.5" },
-          "50%": { opacity: "1" },
+          "0%, 100%": { 
+            opacity: "1",
+            filter: "drop-shadow(0 0 8px currentColor)"
+          },
+          "50%": { 
+            opacity: "0.8",
+            filter: "drop-shadow(0 0 16px currentColor)"
+          },
+        },
+        "slide-up": {
+          from: { 
+            opacity: "0",
+            transform: "translateY(10px)"
+          },
+          to: { 
+            opacity: "1",
+            transform: "translateY(0)"
+          },
         },
         shimmer: {
           "0%": { backgroundPosition: "-200% 0" },
@@ -91,21 +102,23 @@ const config = {
           "0%, 100%": { transform: "translateY(0)" },
           "50%": { transform: "translateY(-10px)" },
         },
+        "rotate-3d": {
+          "0%": { transform: "rotateY(0deg)" },
+          "100%": { transform: "rotateY(360deg)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        "matrix-rain": "matrix-rain 20s linear infinite",
         "pulse-glow": "pulse-glow 2s ease-in-out infinite",
+        "slide-up": "slide-up 0.5s ease-out",
         shimmer: "shimmer 2s linear infinite",
         float: "float 3s ease-in-out infinite",
-      },
-      fontFamily: {
-        mono: ["Consolas", "Monaco", "Courier New", "monospace"],
+        "rotate-3d": "rotate-3d 20s linear infinite",
       },
       backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic": "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+        'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
     },
   },
