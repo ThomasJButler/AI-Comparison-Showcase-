@@ -96,4 +96,26 @@ export class OpenAIClient extends ApiClient {
 
     return response.data[0].embedding;
   }
+
+  /**
+   * Generate completion - wrapper method for compatibility
+   */
+  async generateCompletion(
+    prompt: string,
+    model: string = "gpt-3.5-turbo",
+    maxTokens?: number,
+    temperature?: number
+  ): Promise<{ content: string; usage?: { total_tokens: number } }> {
+    const response = await this.createChatCompletion({
+      model,
+      messages: [{ role: 'user', content: prompt }],
+      max_tokens: maxTokens || 1000,
+      temperature: temperature !== undefined ? temperature : 0.7
+    });
+
+    return {
+      content: response.choices[0]?.message?.content || '',
+      usage: response.usage
+    };
+  }
 }

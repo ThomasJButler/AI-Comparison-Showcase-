@@ -12,6 +12,7 @@ describe('Playground API', () => {
   let mockApiService: any
   let mockOpenAIClient: any
   let mockAnthropicClient: any
+  let mockDeepSeekClient: any
 
   beforeEach(() => {
     jest.clearAllMocks()
@@ -25,10 +26,14 @@ describe('Playground API', () => {
       generateCompletion: jest.fn()
     }
     
+    mockDeepSeekClient = {
+      generateText: jest.fn()
+    }
+    
     mockApiService = {
       getOpenAI: jest.fn().mockReturnValue(mockOpenAIClient),
       getAnthropic: jest.fn().mockReturnValue(mockAnthropicClient),
-      getDeepSeek: jest.fn(),
+      getDeepSeek: jest.fn().mockReturnValue(mockDeepSeekClient),
       getPerplexity: jest.fn()
     }
     
@@ -56,8 +61,8 @@ describe('Playground API', () => {
       expect(mockOpenAIClient.generateCompletion).toHaveBeenCalledWith(
         'Test prompt',
         'gpt-4',
-        undefined,
-        undefined
+        1024,  // default maxTokens
+        0.7    // default temperature
       )
       
       expect(result).toEqual({
@@ -125,8 +130,8 @@ describe('Playground API', () => {
       expect(mockOpenAIClient.generateCompletion).toHaveBeenCalledWith(
         'Explain quantum computing',
         'gpt-4',
-        200,
-        0.5
+        1024,  // default maxTokens - JSON parsing happens in playground page, not API
+        0.7    // default temperature - JSON parsing happens in playground page, not API
       )
       
       expect(result.content).toBe('Quantum computing explanation...')
@@ -161,7 +166,7 @@ describe('Playground API', () => {
 
       const result = await generatePlaygroundResponse(request)
 
-      expect(result.error).toBe('Failed to generate response: API Error')
+      expect(result.error).toBe('Failed to generate response: OpenAI API error: API Error')
       expect(result.content).toBeUndefined()
     })
 

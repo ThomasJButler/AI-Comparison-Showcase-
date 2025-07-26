@@ -20,7 +20,7 @@ export function DemoBanner() {
             </span>
           </div>
           <Link
-            href="https://github.com/[your-username]/ai-comparison-showcase"
+            href="https://github.com/thomasjbutler/ai-comparison-showcase"
             target="_blank"
             rel="noopener noreferrer"
             className="text-sm text-matrix-primary hover:text-matrix-secondary transition-colors flex items-center gap-1"

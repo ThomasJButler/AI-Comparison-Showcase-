@@ -27,9 +27,11 @@ describe('Navigation', () => {
     render(<Navigation />)
     
     navigationLinks.forEach(link => {
-      const navLink = screen.getByText(link.label)
-      expect(navLink).toBeInTheDocument()
-      expect(navLink.closest('a')).toHaveAttribute('href', link.href)
+      // Use getAllByText since links appear in both desktop and mobile menus
+      const navLinks = screen.getAllByText(link.label)
+      expect(navLinks.length).toBeGreaterThan(0)
+      // Check the first instance (desktop menu)
+      expect(navLinks[0].closest('a')).toHaveAttribute('href', link.href)
     })
   })
 
@@ -72,7 +74,9 @@ describe('Navigation', () => {
     const user = userEvent.setup()
     render(<Navigation />)
     
-    const dashboardLink = screen.getByText('Dashboard')
+    // Get all Dashboard links and use the first one (desktop menu)
+    const dashboardLinks = screen.getAllByText('Dashboard')
+    const dashboardLink = dashboardLinks[0]
     
     await user.hover(dashboardLink)
     
@@ -94,9 +98,10 @@ describe('Navigation', () => {
   it('renders responsive layout classes', () => {
     render(<Navigation />)
     
-    // Check for responsive classes
-    const linkContainer = screen.getByText('Dashboard').closest('div')
-    expect(linkContainer?.parentElement).toHaveClass('hidden', 'sm:flex')
+    // Check for responsive classes on desktop navigation container
+    const desktopNav = document.querySelector('.hidden.sm\\:flex')
+    expect(desktopNav).toBeInTheDocument()
+    expect(desktopNav).toHaveClass('hidden', 'sm:flex', 'sm:items-center')
   })
 
   it('includes accessibility labels for icons', () => {

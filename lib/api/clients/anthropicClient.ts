@@ -107,4 +107,32 @@ export class AnthropicClient extends ApiClient {
       return false;
     }
   }
+
+  /**
+   * Generate completion - wrapper method for compatibility
+   */
+  async generateCompletion(
+    prompt: string,
+    model: string = "claude-3-sonnet-20240229",
+    maxTokens?: number,
+    temperature?: number
+  ): Promise<{ content: string; usage?: { total_tokens: number } }> {
+    const response = await this.createMessage({
+      model,
+      messages: [{ role: 'user', content: prompt }],
+      max_tokens: maxTokens || 1024,
+      temperature: temperature !== undefined ? temperature : 0.7
+    });
+
+    // Extract text content
+    const textContent = response.content
+      .filter(block => block.type === 'text' && block.text)
+      .map(block => block.text)
+      .join('');
+
+    return {
+      content: textContent,
+      usage: response.usage ? { total_tokens: response.usage.input_tokens + response.usage.output_tokens } : undefined
+    };
+  }
 }

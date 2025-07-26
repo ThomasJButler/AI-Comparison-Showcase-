@@ -43,10 +43,10 @@ export function createApiNetworkData(options: {
   const connections: NetworkConnection[] = [];
   const timestamp = Date.now();
   
-  // Always include the central AiTomatic node
+  // Always include the central AI Comparison node
   nodes.push({
-    id: 'aitomatic',
-    name: 'AiTomatic',
+    id: 'ai-comparison',
+    name: 'AI Comparison',
     type: 'service',
     status: 'active',
     size: 100,
@@ -72,7 +72,7 @@ export function createApiNetworkData(options: {
     
     connections.push({
       source: 'user',
-      target: 'aitomatic',
+      target: 'ai-comparison',
       strength: 1,
       dataFlow: 75,
       status: 'active',
@@ -130,7 +130,7 @@ export function createApiNetworkData(options: {
     });
     
     connections.push({
-      source: 'aitomatic',
+      source: 'ai-comparison',
       target: 'openai',
       strength: 0.9,
       dataFlow: 80,
@@ -157,7 +157,7 @@ export function createApiNetworkData(options: {
     });
     
     connections.push({
-      source: 'aitomatic',
+      source: 'ai-comparison',
       target: 'weather',
       strength: 0.7,
       dataFlow: 30,
@@ -184,7 +184,7 @@ export function createApiNetworkData(options: {
     });
     
     connections.push({
-      source: 'aitomatic',
+      source: 'ai-comparison',
       target: 'news',
       strength: 0.6,
       dataFlow: 25,
@@ -210,7 +210,7 @@ export function createApiNetworkData(options: {
   });
   
   connections.push({
-    source: 'aitomatic',
+    source: 'ai-comparison',
     target: 'storage',
     strength: 0.8,
     dataFlow: 50,
