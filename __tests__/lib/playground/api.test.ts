@@ -167,7 +167,7 @@ describe('Playground API', () => {
       const result = await generatePlaygroundResponse(request)
 
       expect(result.error).toBe('Failed to generate response: OpenAI API error: API Error')
-      expect(result.content).toBeUndefined()
+      expect(result.content).toBe('')
     })
 
     it('handles code input format', async () => {
@@ -185,10 +185,14 @@ def calculate_fibonacci(n):
         inputFormat: 'code'
       }
 
+      // Set DeepSeek as undefined to test demo response
+      mockApiService.getDeepSeek = undefined
+
       // Should return demo response for unconfigured provider
       const result = await generatePlaygroundResponse(request)
 
       expect(result.content).toBeDefined()
+      expect(result.content).toContain('demo response')
       expect(result.metadata?.model).toBe('deepseek-coder')
     })
 

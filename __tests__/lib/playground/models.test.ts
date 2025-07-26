@@ -148,7 +148,7 @@ describe('Playground Models', () => {
       const perplexityModel = models.find(g => g.provider === 'Perplexity')?.models[0]
 
       expect(perplexityModel).toBeDefined()
-      expect(perplexityModel?.name).toBe('Sonar Small (Online)')
+      expect(perplexityModel?.name).toBe('Sonar Small')
       expect(perplexityModel?.capabilities).toContain('Web Search')
       expect(perplexityModel?.metrics.latency).toBe('~400ms')
       expect(perplexityModel?.metrics.tokens).toBe('12000')
