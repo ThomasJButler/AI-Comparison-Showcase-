@@ -235,7 +235,7 @@ export default function PrivacyPage() {
             <div>
               <h4 className="text-sm font-medium text-blue-500 mb-1">About API Key Storage</h4>
               <p className="text-xs text-blue-500/80">
-                AI Comparison Showcase stores your API keys locally in your browser's secure storage.
+                AI Comparison Showcase stores your API keys locally in your browser&apos;s secure storage.
                 They are never sent to our servers and are only used to make requests directly
                 from your browser to the respective AI service providers.
               </p>

@@ -135,7 +135,7 @@ export function PerformanceMonitor() {
           <Alert>
             <AlertCircle className="h-4 w-4" />
             <AlertDescription>
-              Click "Start Monitoring" to begin collecting performance metrics
+              Click &quot;Start Monitoring&quot; to begin collecting performance metrics
             </AlertDescription>
           </Alert>
         ) : (

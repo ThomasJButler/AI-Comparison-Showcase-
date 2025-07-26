@@ -13,7 +13,11 @@
     "test:coverage": "jest --coverage",
     "test:ci": "jest --ci --coverage --maxWorkers=2",
     "analyze": "ANALYZE=true next build",
-    "build:analyze": "ANALYZE=true next build"
+    "build:analyze": "ANALYZE=true next build",
+    "pre-deploy": "node scripts/pre-deploy.js",
+    "post-deploy": "node scripts/post-deploy.js",
+    "deploy": "npm run pre-deploy && vercel --prod",
+    "deploy:preview": "vercel"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.4",

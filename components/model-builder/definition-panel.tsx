@@ -197,7 +197,7 @@ export function ModelDefinitionPanel() {
       <div>
         <h3 className="text-lg font-medium mb-2">Model Definition</h3>
         <p className="text-sm text-foreground/70">
-          Configure your model's capabilities and parameters
+          Configure your model&apos;s capabilities and parameters
         </p>
       </div>
 
@@ -457,7 +457,7 @@ export function ModelDefinitionPanel() {
             className="space-y-3"
           >
             <p className="text-xs text-foreground/70">
-              Enhance your model with additional capabilities beyond the base model's functionality.
+              Enhance your model with additional capabilities beyond the base model&apos;s functionality.
             </p>
             
             <div className="grid grid-cols-1 gap-2">

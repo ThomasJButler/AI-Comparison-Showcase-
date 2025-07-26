@@ -29,6 +29,10 @@ const nextConfig = {
       'framer-motion'
     ]
   },
+  // Production optimizations
+  swcMinify: true,
+  productionBrowserSourceMaps: false,
+  generateEtags: true,
   // Split chunks optimization
   webpack: (config, { isServer }) => {
     if (!isServer) {
@@ -83,7 +87,11 @@ const nextConfig = {
     // Enable new image optimization
     unoptimized: false,
     // Modern image formats
-    formats: ['image/avif', 'image/webp']
+    formats: ['image/avif', 'image/webp'],
+    // Production optimization
+    minimumCacheTTL: 60,
+    dangerouslyAllowSVG: true,
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;"
   },
   eslint: {
     ignoreDuringBuilds: true,

@@ -15,7 +15,7 @@ export default function UnauthorizedPage() {
         <Shield className="w-16 h-16 text-matrix-tertiary mx-auto mb-4" />
         <h1 className="text-3xl font-bold mb-2">Unauthorized Access</h1>
         <p className="text-foreground/70 mb-6">
-          You don't have permission to access this page.
+          You don&apos;t have permission to access this page.
         </p>
         <Link
           href="/dashboard"

@@ -142,7 +142,7 @@ export function PlaygroundGuide({ onClose }: PlaygroundGuideProps) {
           <ul className="space-y-2">
             <li className="flex items-center gap-2 text-foreground/70">
               <Sparkles className="w-4 h-4 text-matrix-primary" />
-              Use the disaster simulator to test your model's resilience
+              Use the disaster simulator to test your model&apos;s resilience
             </li>
             <li className="flex items-center gap-2 text-foreground/70">
               <Sparkles className="w-4 h-4 text-matrix-secondary" />
