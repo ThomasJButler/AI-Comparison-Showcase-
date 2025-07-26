@@ -55,9 +55,32 @@ export function MainContent() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8">
+      <section className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 overflow-hidden">
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-b from-background via-background/95 to-background" />
+          {/* Animated particles background */}
+          <div className="absolute inset-0">
+            {[...Array(50)].map((_, i) => (
+              <motion.div
+                key={i}
+                className="absolute w-1 h-1 bg-matrix-primary/30 rounded-full"
+                initial={{
+                  x: Math.random() * 100 + "%",
+                  y: Math.random() * 100 + "%",
+                }}
+                animate={{
+                  y: [null, "-100px"],
+                  opacity: [0, 1, 0],
+                }}
+                transition={{
+                  duration: Math.random() * 10 + 10,
+                  repeat: Infinity,
+                  delay: Math.random() * 5,
+                  ease: "linear",
+                }}
+              />
+            ))}
+          </div>
         </div>
         
         <div className="relative max-w-7xl mx-auto text-center">
@@ -70,12 +93,28 @@ export function MainContent() {
             <motion.div
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              transition={{ delay: 0.2 }}
+              transition={{ delay: 0.2, type: "spring", stiffness: 100 }}
               className="flex justify-center mb-8"
             >
               <div className="relative">
-                <div className="absolute inset-0 blur-3xl bg-matrix-primary/20 rounded-full" />
-                <Brain className="w-24 h-24 text-matrix-primary relative" />
+                <motion.div
+                  className="absolute inset-0 blur-3xl bg-matrix-primary/20 rounded-full"
+                  animate={{
+                    scale: [1, 1.2, 1],
+                    opacity: [0.2, 0.3, 0.2],
+                  }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                />
+                <motion.div
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                >
+                  <Brain className="w-24 h-24 text-matrix-primary relative filter drop-shadow-[0_0_20px_rgba(0,255,0,0.5)]" />
+                </motion.div>
               </div>
             </motion.div>
 
@@ -89,21 +128,45 @@ export function MainContent() {
               Experience the next generation of artificial intelligence with our cutting-edge platform
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
-                href="/dashboard"
-                className="inline-flex items-center px-8 py-3 rounded-lg bg-matrix-primary text-background font-semibold hover:bg-matrix-primary/90 transition-all group"
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6 }}
+              className="flex flex-col sm:flex-row gap-4 justify-center"
+            >
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
-                Launch Platform
-                <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </Link>
-              <Link
-                href="/docs"
-                className="inline-flex items-center px-8 py-3 rounded-lg border border-matrix-primary bg-transparent text-matrix-primary font-semibold hover:bg-matrix-primary/10 transition-all"
+                <Link
+                  href="/dashboard"
+                  className="relative inline-flex items-center px-8 py-3 rounded-lg bg-matrix-primary text-background font-semibold overflow-hidden group"
+                >
+                  <span className="absolute inset-0 bg-gradient-to-r from-matrix-primary via-matrix-secondary to-matrix-primary bg-[length:200%_100%] animate-shimmer" />
+                  <span className="relative flex items-center">
+                    Launch Platform
+                    <motion.div
+                      animate={{ x: [0, 5, 0] }}
+                      transition={{ duration: 1.5, repeat: Infinity }}
+                    >
+                      <ArrowRight className="ml-2 w-5 h-5" />
+                    </motion.div>
+                  </span>
+                </Link>
+              </motion.div>
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
-                Documentation
-              </Link>
-            </div>
+                <Link
+                  href="/docs"
+                  className="relative inline-flex items-center px-8 py-3 rounded-lg border-2 border-matrix-primary bg-transparent text-matrix-primary font-semibold overflow-hidden group transition-all hover:text-background"
+                >
+                  <span className="absolute inset-0 bg-matrix-primary transform -translate-x-full group-hover:translate-x-0 transition-transform duration-300" />
+                  <span className="relative">Documentation</span>
+                </Link>
+              </motion.div>
+            </motion.div>
           </motion.div>
         </div>
       </section>
@@ -128,14 +191,37 @@ export function MainContent() {
             {features.map((feature, index) => (
               <motion.div
                 key={feature.title}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-                className="p-6 rounded-lg border border-border bg-card hover:border-matrix-primary/50 transition-all hover:-translate-y-1"
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ 
+                  delay: index * 0.1,
+                  type: "spring",
+                  stiffness: 100
+                }}
+                whileHover={{ 
+                  y: -8,
+                  transition: { type: "spring", stiffness: 300 }
+                }}
+                className="group relative p-6 rounded-lg border border-border bg-card hover:border-matrix-primary/50 transition-all overflow-hidden"
               >
-                <feature.icon className="w-10 h-10 text-matrix-primary mb-4" />
-                <h3 className="text-lg font-semibold mb-2">{feature.title}</h3>
-                <p className="text-sm text-foreground/70">{feature.description}</p>
+                {/* Gradient background on hover */}
+                <div className="absolute inset-0 bg-gradient-to-br from-matrix-primary/0 via-matrix-primary/5 to-matrix-primary/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                
+                {/* Icon with animation */}
+                <motion.div
+                  className="relative z-10 mb-4"
+                  whileHover={{ rotate: 360 }}
+                  transition={{ duration: 0.6 }}
+                >
+                  <feature.icon className="w-10 h-10 text-matrix-primary group-hover:text-matrix-secondary transition-colors duration-300 group-hover:filter group-hover:drop-shadow-[0_0_15px_rgba(0,255,0,0.5)]" />
+                </motion.div>
+                
+                <h3 className="relative z-10 text-lg font-semibold mb-2 group-hover:text-matrix-primary transition-colors duration-300">{feature.title}</h3>
+                <p className="relative z-10 text-sm text-foreground/70 group-hover:text-foreground/90 transition-colors duration-300">{feature.description}</p>
+                
+                {/* Bottom accent line */}
+                <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-matrix-primary to-transparent transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
               </motion.div>
             ))}
           </div>

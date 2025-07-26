@@ -1,7 +1,8 @@
 "use client";
 
-import { motion } from 'framer-motion';
-import { Download, RefreshCw, ChevronDown } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Download, RefreshCw, ChevronDown, Copy, Check, Maximize2, Code, FileText, BarChart3 } from 'lucide-react';
+import { useState, useEffect } from 'react';
 import {
   LineChart,
   Line,
@@ -11,6 +12,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from 'recharts';
+import { EnhancedLoading } from './enhanced-loading';
 
 interface OutputDisplayProps {
   output: any;
@@ -23,6 +25,28 @@ export function OutputDisplay({
   isProcessing,
   VisualisationType,
 }: OutputDisplayProps) {
+  const [copied, setCopied] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [showLineNumbers, setShowLineNumbers] = useState(true);
+  const [currentView, setCurrentView] = useState(VisualisationType);
+  useEffect(() => {
+    setCurrentView(VisualisationType);
+  }, [VisualisationType]);
+
+  const copyToClipboard = async () => {
+    const outputContent = output.content !== undefined ? output.content : 
+                         output.error !== undefined ? output.error : 
+                         output;
+    
+    const textToCopy = typeof outputContent === 'object' 
+      ? JSON.stringify(outputContent, null, 2)
+      : String(outputContent);
+    
+    await navigator.clipboard.writeText(textToCopy);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
   const renderVisualisation = () => {
     if (!output) return null;
     
@@ -31,11 +55,24 @@ export function OutputDisplay({
                          output.error !== undefined ? output.error : 
                          output;
 
-    switch (VisualisationType) {
+    const isError = output.error !== undefined;
+
+    switch (currentView) {
       case 'chart':
-        if (!Array.isArray(outputContent)) return null;
+        if (!Array.isArray(outputContent)) {
+          return (
+            <div className="h-full flex items-center justify-center text-foreground/50">
+              <p>No chart data available</p>
+            </div>
+          );
+        }
         return (
-          <div className="h-64">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.3 }}
+            className="h-64"
+          >
             <ResponsiveContainer width="100%" height="100%">
               <LineChart data={outputContent}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#333" />
@@ -43,36 +80,80 @@ export function OutputDisplay({
                 <YAxis stroke="#666" />
                 <Tooltip
                   contentStyle={{
-                    backgroundColor: '#1a1a1a',
-                    border: '1px solid #333',
+                    backgroundColor: 'hsl(var(--card))',
+                    border: '1px solid hsl(var(--border))',
                     borderRadius: '8px',
                   }}
                 />
                 <Line
                   type="monotone"
                   dataKey="value"
-                  stroke="#00ff00"
+                  stroke="hsl(var(--primary))"
                   strokeWidth={2}
+                  dot={{ fill: 'hsl(var(--primary))' }}
+                  activeDot={{ r: 6 }}
                 />
               </LineChart>
             </ResponsiveContainer>
-          </div>
+          </motion.div>
         );
       case 'json':
         return (
-          <pre className="text-sm font-mono overflow-auto">
-            {typeof outputContent === 'object' 
-              ? JSON.stringify(outputContent, null, 2)
-              : outputContent}
-          </pre>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.3 }}
+            className="relative"
+          >
+            {showLineNumbers && (
+              <div className="absolute left-0 top-0 bottom-0 w-12 bg-muted/30 border-r border-border text-right pr-2 pt-4 select-none">
+                {(typeof outputContent === 'object' 
+                  ? JSON.stringify(outputContent, null, 2)
+                  : outputContent
+                ).split('\n').map((_, i) => (
+                  <div key={i} className="text-xs text-muted-foreground">
+                    {i + 1}
+                  </div>
+                ))}
+              </div>
+            )}
+            <pre className={`text-sm font-mono overflow-auto p-4 ${showLineNumbers ? 'pl-16' : ''} ${isError ? 'text-destructive' : ''}`}>
+              <motion.code
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5, staggerChildren: 0.1 }}
+              >
+                {typeof outputContent === 'object' 
+                  ? JSON.stringify(outputContent, null, 2)
+                  : outputContent}
+              </motion.code>
+            </pre>
+          </motion.div>
         );
       default:
         return (
-          <pre className="text-sm font-mono whitespace-pre-wrap">
-            {typeof outputContent === 'object' 
-              ? JSON.stringify(outputContent, null, 2)
-              : String(outputContent)}
-          </pre>
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3 }}
+            className="relative"
+          >
+            <pre className={`text-sm font-mono whitespace-pre-wrap p-4 ${isError ? 'text-destructive' : ''}`}>
+              <AnimatePresence mode="wait">
+                <motion.span
+                  key={outputContent}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  {typeof outputContent === 'object' 
+                    ? JSON.stringify(outputContent, null, 2)
+                    : String(outputContent)}
+                </motion.span>
+              </AnimatePresence>
+            </pre>
+          </motion.div>
         );
     }
   };
@@ -98,35 +179,187 @@ export function OutputDisplay({
     URL.revokeObjectURL(url);
   };
 
+  const viewModeButtons = [
+    { id: 'text', icon: FileText, label: 'Text' },
+    { id: 'json', icon: Code, label: 'JSON' },
+    { id: 'chart', icon: BarChart3, label: 'Chart' }
+  ];
+
   return (
-    <div className="space-y-4">
+    <motion.div 
+      className="space-y-4"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.3 }}
+    >
       <div className="flex items-center justify-between">
-        <h3 className="text-lg font-semibold">Output</h3>
+        <div className="flex items-center gap-4">
+          <h3 className="text-lg font-semibold">Output</h3>
+          {output && !isProcessing && (
+            <motion.div 
+              className="flex gap-1"
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.2 }}
+            >
+              {viewModeButtons.map((mode) => {
+                const Icon = mode.icon;
+                return (
+                  <motion.button
+                    key={mode.id}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => setCurrentView(mode.id as any)}
+                    className={`p-1.5 rounded-md transition-all duration-200 ${
+                      currentView === mode.id
+                        ? 'bg-matrix-primary/20 text-matrix-primary'
+                        : 'hover:bg-matrix-primary/10 text-foreground/60'
+                    }`}
+                    title={mode.label}
+                  >
+                    <Icon className="w-4 h-4" />
+                  </motion.button>
+                );
+              })}
+            </motion.div>
+          )}
+        </div>
+        
         {output && !isProcessing && (
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={downloadOutput}
-            className="p-2 rounded-lg bg-card border border-border hover:border-matrix-secondary/50 text-foreground/70"
+          <motion.div 
+            className="flex items-center gap-2"
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.3 }}
           >
-            <Download className="w-4 h-4" />
-          </motion.button>
+            <AnimatePresence mode="wait">
+              <motion.button
+                key={copied ? 'check' : 'copy'}
+                initial={{ scale: 0.8, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.8, opacity: 0 }}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={copyToClipboard}
+                className={`p-2 rounded-lg border transition-all duration-200 ${
+                  copied 
+                    ? 'bg-green-500/10 border-green-500 text-green-500' 
+                    : 'bg-card border-border hover:border-matrix-primary/50 text-foreground/70'
+                }`}
+              >
+                {copied ? (
+                  <Check className="w-4 h-4" />
+                ) : (
+                  <Copy className="w-4 h-4" />
+                )}
+              </motion.button>
+            </AnimatePresence>
+            
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={downloadOutput}
+              className="p-2 rounded-lg bg-card border border-border hover:border-matrix-primary/50 text-foreground/70 transition-all duration-200"
+            >
+              <Download className="w-4 h-4" />
+            </motion.button>
+            
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => setIsExpanded(!isExpanded)}
+              className="p-2 rounded-lg bg-card border border-border hover:border-matrix-primary/50 text-foreground/70 transition-all duration-200"
+            >
+              <Maximize2 className="w-4 h-4" />
+            </motion.button>
+          </motion.div>
         )}
       </div>
 
-      <div className="min-h-[24rem] p-4 rounded-lg bg-card border border-border">
-        {isProcessing ? (
-          <div className="h-full flex items-center justify-center">
-            <RefreshCw className="w-6 h-6 animate-spin text-matrix-primary" />
-          </div>
-        ) : output ? (
-          renderVisualisation()
-        ) : (
-          <div className="h-full flex items-center justify-center text-foreground/50">
-            Output will appear here...
-          </div>
+      <motion.div 
+        className={`relative rounded-lg bg-card border overflow-hidden transition-all duration-300 ${
+          isExpanded ? 'fixed inset-4 z-50' : 'min-h-[24rem]'
+        } ${output?.error ? 'border-destructive/50' : 'border-border hover:border-matrix-primary/30'}`}
+        layout
+      >
+        {/* Glow effect on new output */}
+        <AnimatePresence>
+          {output && !isProcessing && (
+            <motion.div
+              className="absolute inset-0 pointer-events-none"
+              initial={{ opacity: 1 }}
+              animate={{ opacity: 0 }}
+              transition={{ duration: 1 }}
+            >
+              <div className="absolute inset-0 bg-gradient-to-r from-matrix-primary/20 via-matrix-secondary/20 to-matrix-tertiary/20 blur-xl" />
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        <div className="relative h-full">
+          {isProcessing ? (
+            <div className="h-full flex items-center justify-center p-8">
+              <EnhancedLoading 
+                variant="ai"
+                message="Processing your request"
+                submessages={[
+                  "Analyzing input...",
+                  "Querying AI model...",
+                  "Generating response...",
+                  "Formatting output..."
+                ]}
+              />
+            </div>
+          ) : output ? (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5 }}
+              className="h-full overflow-auto"
+            >
+              {renderVisualisation()}
+            </motion.div>
+          ) : (
+            <motion.div 
+              className="h-full flex items-center justify-center text-foreground/50"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.3 }}
+            >
+              <div className="text-center space-y-2">
+                <motion.div
+                  animate={{ 
+                    y: [0, -10, 0],
+                    opacity: [0.5, 1, 0.5]
+                  }}
+                  transition={{ 
+                    duration: 2,
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                  }}
+                >
+                  <FileText className="w-12 h-12 mx-auto text-foreground/30" />
+                </motion.div>
+                <p>Output will appear here...</p>
+              </div>
+            </motion.div>
+          )}
+        </div>
+        
+        {/* Close button for expanded view */}
+        {isExpanded && (
+          <motion.button
+            initial={{ opacity: 0, scale: 0 }}
+            animate={{ opacity: 1, scale: 1 }}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            onClick={() => setIsExpanded(false)}
+            className="absolute top-4 right-4 p-2 rounded-lg bg-card border border-border hover:border-matrix-primary/50 text-foreground/70"
+          >
+            <ChevronDown className="w-4 h-4" />
+          </motion.button>
         )}
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 }

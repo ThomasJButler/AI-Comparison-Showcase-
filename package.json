@@ -11,7 +11,9 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
-    "test:ci": "jest --ci --coverage --maxWorkers=2"
+    "test:ci": "jest --ci --coverage --maxWorkers=2",
+    "analyze": "ANALYZE=true next build",
+    "build:analyze": "ANALYZE=true next build"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.4",
@@ -43,6 +45,8 @@
     "@radix-ui/react-toggle": "^1.1.1",
     "@radix-ui/react-toggle-group": "^1.1.1",
     "@radix-ui/react-tooltip": "^1.0.7",
+    "@vercel/analytics": "^1.1.1",
+    "@vercel/speed-insights": "^1.0.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "cmdk": "^1.0.4",
@@ -71,6 +75,7 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
+    "@next/bundle-analyzer": "^14.2.25",
     "@swc/jest": "^0.2.39",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.3.0",

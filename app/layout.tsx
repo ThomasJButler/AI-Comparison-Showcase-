@@ -7,6 +7,8 @@ import { DemoBanner } from '@/components/demo-banner';
 import { MatrixBackground } from '@/components/matrix-background';
 import { PageTransition } from '@/components/page-transition';
 import { Toaster } from '@/components/ui/toaster';
+// import { Analytics } from '@vercel/analytics/react';
+// import { SpeedInsights } from '@vercel/speed-insights/next';
 import './globals.css';
 
 // Optimise font loading
@@ -94,6 +96,8 @@ export default function RootLayout({
           </PageTransition>
           <Toaster />
         </ThemeProvider>
+        {/* <Analytics />
+        <SpeedInsights /> */}
       </body>
     </html>
   );
