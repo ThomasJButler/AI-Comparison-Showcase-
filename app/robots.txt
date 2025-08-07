@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://AiTomatic.com/sitemap.xml
+Sitemap: https://ai-comparison-showcase.vercel.app/sitemap.xml

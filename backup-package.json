@@ -1,7 +1,7 @@
 {
-  "name": "aitomatic",
+  "name": "ai-comparison-showcase",
   "version": "1.7.0",
-  "description": "Aitomatic is a web-based tool for creating and managing AI agents, providing a user-friendly interface for building, training, and deploying AI models.",
+  "description": "AI Comparison Showcase is an interactive web-based tool for comparing and analyzing different AI models, providing a user-friendly interface for exploring AI capabilities.",
   "private": true,
   "scripts": {
     "dev": "next dev",

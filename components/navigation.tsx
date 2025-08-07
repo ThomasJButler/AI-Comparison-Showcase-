@@ -28,11 +28,11 @@ export function Navigation() {
             <Link
               href="/"
               className="flex items-center px-2 text-matrix-primary hover:text-matrix-secondary transition-colors"
-              aria-label="AiTomatic Home"
+              aria-label="AI Comparison Home"
             >
-              <span className="text-xl font-bold tracking-tight">AiTomatic</span>
+              <span className="text-xl font-bold tracking-tight">AI Comparison</span>
               <span className="ml-2 px-2 py-1 text-xs rounded-full border border-matrix-primary/20 bg-matrix-primary/10 text-matrix-primary">
-                Prototype
+                Showcase
               </span>
             </Link>
           </div>

@@ -10,7 +10,7 @@ import { PlaygroundGuide } from '@/components/playground-guide';
 import { ProviderSelector } from '@/components/provider-selector';
 import { EnhancedInput } from '@/components/enhanced-input';
 import { getAvailableModels, type ModelOption, type ProviderGroupedModels } from '@/lib/playground/models';
-import { generatePlaygroundResponse, type PlaygroundRequest, type PlaygroundResponse } from '@/lib/playground/api';
+import { generatePlaygroundResponse, type PlaygroundRequest, type PlaygroundResponse } from '@/lib/playground/api-cached';
 
 type InputFormat = 'json' | 'text' | 'code';
 

@@ -3,7 +3,7 @@ export function getCurrentUser() {
   return {
     id: "demo",
     name: "Demo User",
-    email: "demo@AiTomatic.com",
+    email: "demo@example.com",
     role: "user"
   };
 }

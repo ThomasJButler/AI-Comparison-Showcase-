@@ -3,6 +3,9 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
+/* Import enhanced interactions */
+@import './interactions.css';
+
 /* Base theme variables */
 @layer base {
   :root {
@@ -25,6 +28,7 @@
     --border: 0 0% 20%;
     --input: 0 0% 20%;
     --ring: 120 100% 50%;
+    --radius: 0.5rem;
   }
 }
 
@@ -53,6 +57,16 @@
   --matrix-code-animation: matrix-code 20s linear infinite;
   --scanline-animation: scanlines 0.5s linear infinite;
   --panel-border-glow: 0 0 2px var(--matrix-primary-50);
+  
+  /* Animation timing functions */
+  --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  
+  /* Transition durations */
+  --transition-fast: 150ms;
+  --transition-normal: 300ms;
+  --transition-slow: 500ms;
 }
 
 /* Matrix code rain effect */
@@ -65,6 +79,120 @@
 @keyframes scanlines {
   0% { background-position: 0 0; }
   100% { background-position: 0 100%; }
+}
+
+/* New animations */
+@keyframes pulse-glow {
+  0%, 100% { 
+    opacity: 0.5;
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+  }
+  50% { 
+    opacity: 1;
+    box-shadow: 0 0 40px rgba(0, 255, 0, 0.8);
+  }
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes rotate-3d {
+  0% { transform: rotate3d(0, 1, 0, 0deg); }
+  100% { transform: rotate3d(0, 1, 0, 360deg); }
+}
+
+/* Loading skeleton animation */
+.skeleton {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(90deg, 
+    hsl(var(--muted)) 0%, 
+    hsl(var(--muted) / 0.5) 50%, 
+    hsl(var(--muted)) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+
+/* Hover lift effect */
+.hover-lift {
+  transition: transform var(--transition-normal) var(--ease-smooth),
+              box-shadow var(--transition-normal) var(--ease-smooth);
+}
+
+.hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 
+              0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Glow border effect */
+.glow-border {
+  position: relative;
+  background: hsl(var(--card));
+  border: 1px solid hsl(var(--border));
+  transition: border-color var(--transition-normal) var(--ease-smooth);
+}
+
+.glow-border::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: linear-gradient(45deg, 
+    hsl(var(--primary)), 
+    hsl(var(--secondary)), 
+    hsl(var(--tertiary))
+  );
+  opacity: 0;
+  transition: opacity var(--transition-normal) var(--ease-smooth);
+  z-index: -1;
+}
+
+.glow-border:hover::before {
+  opacity: 0.3;
+  filter: blur(10px);
+}
+
+/* Smooth scroll behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Focus visible styles */
+:focus-visible {
+  outline: 2px solid hsl(var(--primary));
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Selection colors */
+::selection {
+  background: hsl(var(--primary) / 0.3);
+  color: hsl(var(--foreground));
 }
 
 /* Matrix background */
@@ -851,5 +979,65 @@
 @media (max-width: 768px) {
   .heading-anchor {
     display: none;
+  }
+}
+
+/* Mobile optimizations */
+@media (max-width: 640px) {
+  /* Reduce animations for performance */
+  .matrix-code-bg::before {
+    animation-duration: 30s;
+  }
+  
+  /* Simplified hover effects */
+  .hover-lift:hover {
+    transform: translateY(-2px);
+  }
+  
+  /* Touch-friendly tap targets */
+  button, a {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  .skeleton {
+    animation: none;
+    background: hsl(var(--muted));
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  :root {
+    --primary: 120 100% 60%;
+    --secondary: 180 100% 60%;
+    --border: 0 0% 40%;
+  }
+  
+  .glow-border:hover::before {
+    opacity: 0.5;
+  }
+}
+
+/* Print styles */
+@media print {
+  .matrix-bg,
+  .matrix-code-bg,
+  .scanline-effect {
+    display: none;
+  }
+  
+  * {
+    background: white !important;
+    color: black !important;
   }
 }

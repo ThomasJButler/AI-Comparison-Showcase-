@@ -11,38 +11,65 @@ interface ModelComparisonProps {
 
 export function ModelComparison({ models, onClose }: ModelComparisonProps) {
   const metrics = [
-    { key: 'accuracy', label: 'Accuracy', format: (v: string | number) => `${v}%` },
-    { key: 'latency', label: 'Latency', format: (v: string | number) => `${v}ms` },
-    { key: 'requests', label: 'Total Requests', format: (v: string | number) => `${v}` },
-    { key: 'costper1k', label: 'Cost per 1K', format: (v: string | number) => `$${v}` },
-    { key: 'contextLength', label: 'Context Length', format: (v: string | number) => typeof v === 'number' ? v.toLocaleString() : v },
-    { key: 'dailyQuota', label: 'Daily Quota', format: (v: string | number) => typeof v === 'number' ? v.toLocaleString() : v }
+    { key: 'accuracy', label: 'Accuracy', format: (v: string | number) => `${v}%`, color: 'text-matrix-primary' },
+    { key: 'latency', label: 'Latency', format: (v: string | number) => `${v}ms`, color: 'text-matrix-secondary' },
+    { key: 'requests', label: 'Total Requests', format: (v: string | number) => `${v}`, color: 'text-matrix-tertiary' },
+    { key: 'costper1k', label: 'Cost per 1K', format: (v: string | number) => `$${v}`, color: 'text-yellow-500' },
+    { key: 'contextLength', label: 'Context Length', format: (v: string | number) => typeof v === 'number' ? v.toLocaleString() : v, color: 'text-blue-500' },
+    { key: 'dailyQuota', label: 'Daily Quota', format: (v: string | number) => typeof v === 'number' ? v.toLocaleString() : v, color: 'text-purple-500' }
   ];
+
+  const getMetricComparison = (metric: string, index: number) => {
+    const value1 = models[0].metrics[metric as keyof typeof models[0]['metrics']];
+    const value2 = models[1].metrics[metric as keyof typeof models[1]['metrics']];
+    
+    if (typeof value1 === 'number' && typeof value2 === 'number') {
+      const isBetterHigher = metric === 'accuracy' || metric === 'requests' || metric === 'contextLength' || metric === 'dailyQuota';
+      const model1Better = isBetterHigher ? value1 > value2 : value1 < value2;
+      return index === 0 ? model1Better : !model1Better;
+    }
+    return false;
+  };
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0, scale: 0.95 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.95 }}
+      transition={{ type: "spring", stiffness: 100 }}
       className="relative"
     >
-      <div className="absolute -top-16 right-0">
-        <button
+      <motion.div 
+        className="absolute -top-16 right-0"
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.3 }}
+      >
+        <motion.button
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
           onClick={onClose}
-          className="p-2 rounded-lg bg-background/50 backdrop-blur-sm border border-border hover:border-matrix-primary/50 transition-colors"
+          className="p-2 rounded-lg bg-background/50 backdrop-blur-sm border border-border hover:border-red-500/50 hover:text-red-500 transition-all duration-300 group"
         >
-          <X className="w-5 h-5" />
-        </button>
-      </div>
+          <X className="w-5 h-5 transition-transform duration-300 group-hover:rotate-90" />
+        </motion.button>
+      </motion.div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {models.map((model, index) => (
           <motion.div
             key={model.id}
-            initial={{ opacity: 0, x: index === 0 ? -20 : 20 }}
+            initial={{ opacity: 0, x: index === 0 ? -50 : 50 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: index * 0.2 }}
-            className="p-6 rounded-lg border border-border bg-card"
+            transition={{ 
+              delay: index * 0.2,
+              type: "spring",
+              stiffness: 100
+            }}
+            className="relative p-6 rounded-lg border border-border bg-card overflow-hidden group"
           >
+            {/* Winner highlight */}
+            <div className="absolute inset-0 bg-gradient-to-br from-matrix-primary/0 via-matrix-primary/5 to-matrix-primary/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
             <div className="flex items-center gap-3 mb-6">
               <model.icon className="w-8 h-8 text-matrix-secondary" />
               <div>
@@ -53,17 +80,37 @@ export function ModelComparison({ models, onClose }: ModelComparisonProps) {
 
             <div className="space-y-6">
               {/* Metrics */}
-              <div>
-                <h4 className="text-sm font-medium mb-3">Performance Metrics</h4>
-                <div className="space-y-2">
-                  {metrics.map(({ key, label, format }) => (
-                    <div key={key} className="flex justify-between items-center">
-                      <span className="text-sm text-foreground/70">{label}</span>
-                      <span className="font-mono text-sm">
-                        {format(model.metrics[key as keyof typeof model.metrics])}
-                      </span>
-                    </div>
-                  ))}
+              <div className="relative z-10">
+                <h4 className="text-sm font-medium mb-3 text-foreground/80">Performance Metrics</h4>
+                <div className="space-y-3">
+                  {metrics.map(({ key, label, format, color }) => {
+                    const isBetter = getMetricComparison(key, index);
+                    return (
+                      <motion.div 
+                        key={key} 
+                        className="flex justify-between items-center p-2 rounded-lg bg-background/50 backdrop-blur-sm"
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 0.3 + metrics.indexOf(metrics.find(m => m.key === key)!) * 0.05 }}
+                      >
+                        <span className="text-sm text-foreground/70">{label}</span>
+                        <div className="flex items-center gap-2">
+                          <span className={`font-mono text-sm ${color}`}>
+                            {format(model.metrics[key as keyof typeof model.metrics])}
+                          </span>
+                          {isBetter && (
+                            <motion.div
+                              initial={{ scale: 0 }}
+                              animate={{ scale: 1 }}
+                              transition={{ delay: 0.5, type: "spring", stiffness: 200 }}
+                            >
+                              <Check className="w-4 h-4 text-matrix-primary" />
+                            </motion.div>
+                          )}
+                        </div>
+                      </motion.div>
+                    );
+                  })}
                 </div>
               </div>
 

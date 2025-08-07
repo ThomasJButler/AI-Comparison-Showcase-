@@ -41,26 +41,26 @@ marked.setOptions({
 const content = {
   'getting-started': {
     title: 'Getting Started',
-    description: 'Learn how to integrate AiTomatic\'s powerful AI models into your applications.',
+    description: 'Learn how to integrate powerful AI models into your applications.',
     content: `
 # Quick Start Guide
 
-AiTomatic provides state-of-the-art AI models through a simple, developer-friendly API. Get started in minutes with our comprehensive SDK.
+AI Comparison Showcase provides state-of-the-art AI models through a simple, developer-friendly API. Get started in minutes with our comprehensive SDK.
 
 ## Installation
 
 \`\`\`bash
-npm install @AiTomatic/sdk
+npm install @ai-comparison/sdk
 \`\`\`
 
 ## Basic Usage
 
 \`\`\`typescript
-import { AiTomatic } from '@AiTomatic/sdk';
+import { AIComparison } from '@ai-comparison/sdk';
 
 // Initialize the client
-const client = new AiTomatic({
-  apiKey: process.env.AiTomatic_API_KEY
+const client = new AIComparison({
+  apiKey: process.env.AI_COMPARISON_API_KEY
 });
 
 // Use GPT-4 for text generation
@@ -105,7 +105,7 @@ const transcription = await client.transcribe({
 All API requests require authentication using your API key. Include it in the Authorization header:
 
 \`\`\`typescript
-const client = new AiTomatic({
+const client = new AIComparison({
   apiKey: 'your-api-key'
 });
 \`\`\`
@@ -158,7 +158,7 @@ const client = new AiTomatic({
   },
   'models': {
     title: 'Models',
-    description: 'Explore the various AI models available in AiTomatic.',
+    description: 'Explore the various AI models available in AI Comparison Showcase.',
     content: `
 # Models Overview
 

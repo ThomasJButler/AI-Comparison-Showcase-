@@ -31,7 +31,7 @@ export function HeroSection() {
             </p>
             <div className="space-y-2 text-sm">
               <p className="text-matrix-secondary">
-                Email: <span className="font-mono">demo@AiTomatic.com</span>
+                Email: <span className="font-mono">demo@example.com</span>
               </p>
               <p className="text-matrix-secondary">
                 Password: <span className="font-mono">demo1234</span>
