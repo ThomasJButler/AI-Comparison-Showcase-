@@ -165,9 +165,8 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 ## 👨‍💻 Author
 
 **[Your Name]**
-- Portfolio: [your-portfolio-url]
-- LinkedIn: [your-linkedin]
-- GitHub: [@your-username]
+- Portfolio: [https://thomasjbutler.me]
+- GitHub: [https://github.com/ThomasJButler]
 
 ## 🙏 Acknowledgments
 
