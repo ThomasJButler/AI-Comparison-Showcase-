@@ -6,8 +6,7 @@
 
 AI Comparison Showcase is a portfolio project demonstrating advanced AI model comparison capabilities. It allows users to test and compare various AI models including OpenAI's GPT, Anthropic's Claude, DeepSeek, and Perplexity models with real-time performance metrics and beautiful visualizations.
 
-![Uploading image.png…]()
-
+<img width="1329" height="743" alt="image" src="https://github.com/user-attachments/assets/f7c38e8f-5a41-40a7-809a-65745dfc6bc0" />
 
 ## 🚀 Features
 
